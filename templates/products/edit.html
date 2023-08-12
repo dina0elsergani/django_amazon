@@ -1,0 +1,30 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+    <h1>Edit Product</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Include the current product details as values in the input fields -->
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="{{ product.name }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" value="{{ product.price }}" step="0.01" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" class="form-control">{{ product.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>In Stock</label>
+            <input type="checkbox" name="instock" value="true" {% if product.instock %}checked{% endif %}>
+        </div>
+        <input type="submit" value="Update" class="btn btn-success">
+    </form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>All Categories</h1>
+<a href="{% url 'category_create' %}" class="btn btn-success mb-4">Create Category</a>
+<div class="row">
+    {% for category in categories %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }}" style="height: 200px; width: 100%; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ category.name }}</h5>
+                <p class="card-text">{{ category.info|truncatechars:50 }}</p>
+                <a href="{% url 'category_detail' category.id %}" class="btn btn-primary">View Details</a>
+                <a href="{% url 'category_edit' category.id %}" class="btn btn-info">Edit</a>
+                <a href="{% url 'category_delete' category.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

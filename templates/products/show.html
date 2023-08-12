@@ -1,0 +1,67 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+        </div>
+        <div class="col-md-8">
+            <h1>{{ product.name }}</h1>
+            <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ product.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ product.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Price</th>
+                        <td>{{ product.price }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ product.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>In Stock</th>
+                        <td>{{ product.instock|yesno:"Yes,No" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <td><a href="{{ product.category.get_show_url }}">{{ product.category.name }}</a></td>
+                    </tr>                    
+                    <tr>
+                        <th>Created At</th>
+                        <td>{{ product.created_at }}</td>
+                    </tr>
+                    <tr>
+                        <th>Updated At</th>
+                        <td>{{ product.updated_at }}</td>
+                    </tr>
+                </table>
+                <a href="{% url 'products_index' %}" class="btn btn-primary">Back to Products</a>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <h3>Other products in this category:</h3>
+        <div class="row">
+            {% for other_product in other_products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ other_product.image.url }}" alt="{{ other_product.name }}" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ other_product.name }}</h5>
+                        <a href="{{ other_product.get_show_url }}" class="btn btn-info">View</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

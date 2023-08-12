@@ -1,0 +1,33 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Category Info -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">{{ category.name }}</h1>
+        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-fluid rounded mb-3" style="max-width: 60%;">
+        <p class="lead">{{ category.info }}</p>
+    </div>
+
+    <!-- Products -->
+    <h2 class="mb-4">Products in this Category</h2>
+    <div class="row">
+        {% for product in category.products.all %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description|truncatechars:50 }}</p>
+                    <a href="{% url 'product_show' product.id %}" class="btn btn-info stretched-link">Show</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mt-4">
+        <a href="{% url 'categories' %}" class="btn btn-primary">Back to Categories</a>
+    </div>
+</div>
+{% endblock %}
